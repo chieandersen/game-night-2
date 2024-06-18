@@ -11,7 +11,7 @@ import tailwindStyleSheet from "~/tailwind.css?url";
 
 export const links: LinksFunction = () => {
   return [
-    { rel: "preload", href: tailwindStyleSheet, as: "style" },
+    // { rel: "preload", href: tailwindStyleSheet, as: "style" },
     // cssBundleHref ? { rel: "preload", href: cssBundleHref, as: "style" } : null,
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     {
@@ -29,7 +29,6 @@ export const links: LinksFunction = () => {
   ].filter(Boolean);
 };
 
-
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -39,7 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="flex font-josefin flex-col w-72 h-svh overflow-hidden bg-pink-300">
+      <body className="flex font-josefin flex-col overflow-hidden bg-pink-300">
         {children}
         <ScrollRestoration />
         <Scripts />
