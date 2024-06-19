@@ -1,13 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import clsx from "clsx";
-import {
-  MouseEvent,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useReferencePanel } from "~/component/ReferencePanelProvider";
 
 export const meta: MetaFunction = () => {
   return [
@@ -17,80 +10,15 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const [isResizing, setIsResizing] = useState(false);
-  const [mousePosition, setMousePosition] = useState({
-    x: 0,
-    y: 0,
-  });
-  const [mainContentWidth, setMainContentWidth] = useState<string>("30%");
-  const [navState, setNavState] = useState<"minimized" | "expanded">(
-    "expanded"
-  );
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const navRef = useRef<HTMLDivElement | null>(null);
-  const mainContentRef = useRef<HTMLDivElement | null>(null);
-  const resizerRef = useRef<HTMLButtonElement | null>(null);
-  const referenceContentRef = useRef<HTMLDivElement | null>(null);
-
-  // the new width will be the
-  // (xPosition - navWidth)
-
-  const handleMouseMove = useCallback(
-    (event) => {
-      if (isResizing) {
-        setMousePosition({
-          x: event.clientX,
-          y: event.clientY,
-        });
-
-        // w-72 is 288px
-        const navWidth = navRef.current
-          ? navRef.current.clientWidth
-          : navState === "expanded"
-          ? 288
-          : 50;
-
-        // set min max width
-        const newWidth = () => {
-          const containerWidth =
-            containerRef.current && containerRef.current.clientWidth;
-          const defaultWidth = (event.clientX - navWidth) / containerWidth;
-          const maxWidth = 80 / 100;
-          const minWidth = 20 / 100;
-
-          // if default < containerWidth*minWidth = return containerWidth*minWidth
-          if (containerWidth && defaultWidth < containerWidth * minWidth) {
-            return containerWidth * minWidth;
-          } else if (
-            containerWidth &&
-            defaultWidth > containerWidth * maxWidth
-          ) {
-            return containerWidth * maxWidth;
-          }
-          return defaultWidth;
-        };
-        setMainContentWidth(`${Math.round(newWidth())}px`);
-      }
-    },
-    [isResizing, navState]
-  );
-
-  useEffect(() => {
-    window.addEventListener("mouseup", () => setIsResizing(false));
-    return () => {
-      window.addEventListener("mouseup", () => setIsResizing(false));
-    };
-  }, []);
-
-  useEffect(() => {
-    const containerElement = containerRef.current;
-    if (containerElement) {
-      containerElement.addEventListener("mousemove", handleMouseMove);
-      return () => {
-        containerElement.removeEventListener("mousemove", handleMouseMove);
-      };
-    }
-  }, [handleMouseMove]);
+  const value = useReferencePanel();
+  const {
+    setIsResizing,
+    mainContentWidth,
+    containerRef,
+    navRef,
+    mainContentRef,
+    resizerRef,
+  } = value;
 
   return (
     <article className="font-josefin flex">
@@ -142,10 +70,7 @@ export default function Index() {
           ref={resizerRef}
           onMouseDown={() => setIsResizing(true)}
         />
-        <div
-          className="flex justify-items-center flex-1 border-2"
-          ref={referenceContentRef}
-        >
+        <div className="flex justify-items-center flex-1 border-2">
           ref panel
         </div>
       </section>

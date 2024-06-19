@@ -8,6 +8,7 @@ import {
 } from "@remix-run/react";
 // import "./tailwind.css";
 import tailwindStyleSheet from "~/tailwind.css?url";
+import { ReferencePanelProvider } from "./component/ReferencePanelProvider";
 
 export const links: LinksFunction = () => {
   return [
@@ -39,8 +40,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="flex font-josefin flex-col overflow-hidden bg-pink-300">
-        {children}
-        <ScrollRestoration />
+        <ReferencePanelProvider>
+          {children}
+          <ScrollRestoration />
+        </ReferencePanelProvider>
         <Scripts />
       </body>
     </html>
