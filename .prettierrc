@@ -1,5 +1,6 @@
 {
-  "prettier.printWidth": 70,
-  "prettier.singleQuote": true,
-  "prettier.trailingComma": "es5"
+  "printWidth": 70,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "proseWrap": "always"
 }
