@@ -48,7 +48,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="flex font-josefin flex-col w-svw h-svh overflow-hidden bg-pink-300">
+      <body className="bg-brand-50 flex h-svh w-svw flex-col overflow-hidden font-josefin">
         <ReferencePanelProvider>
           {children}
           <ScrollRestoration />

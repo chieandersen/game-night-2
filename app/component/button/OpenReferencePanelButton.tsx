@@ -13,7 +13,7 @@ export default function OpenReferencePanelButton({
 
   return (
     <button
-      className="border bg-pink-50 h-fit p-3 rounded"
+      className="bg-brand-800 text-brand-50 h-fit w-fit rounded-lg px-3 py-2"
       onClick={() => setIsReferencePanelOpen(true)}
     >
       {icon !== '' && <svg>svg</svg>}

@@ -2,5 +2,7 @@
   "printWidth": 70,
   "singleQuote": true,
   "trailingComma": "es5",
-  "proseWrap": "always"
+  "proseWrap": "always",
+  "tailwindFunctions": ["clsx", "tw"],
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

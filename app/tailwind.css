@@ -4,11 +4,34 @@
 
 @layer base {
   :root {
-    --primary: pink;
-    --secondary: rgb(73, 13, 28);
+    /* --font-sans: here if you have one */
+    /* --font-mono: here if you got it... */
+
+    /* prefixed with foreground because it should look good on the background */
+    --foreground-destructive: #ff595e;
+
+    --background: #dddbcb;
+    --foreground: #070707;
+
+    --primary: #050505;
+    --primary-foreground: #f5f1e3;
+
+    --secondary: #c6d1f5;
+    --secondary-foreground: #050505;
+
+    --accent: #1b9aaa;
+    --accent-foreground: #050505;
+
+    --destructive: #ff595e;
+    --destructive-foreground: #faf8f1;
+
+    --ring: #3943b7;
   }
+
   .dark {
-    --primary: red;
-    --secondary: blue;
+    --foreground-destructive: -4 84% 60%;
+
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
   }
 }

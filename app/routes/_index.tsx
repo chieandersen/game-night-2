@@ -24,11 +24,13 @@ export default function Index() {
   } = useReferencePanel();
 
   return (
-    <article className="font-josefin flex h-full overflow-hidden">
+    <article className="text-brand-900 flex h-full overflow-hidden font-josefin">
       <Navigation />
       <div className="flex flex-1" ref={containerRef}>
         <article
-          className={clsx('flex justify-items-center border')}
+          className={clsx(
+            'flex flex-col justify-items-center gap-4 p-4'
+          )}
           style={{
             width: isReferencePanelOpen ? mainContentWidth : '100%',
           }}

@@ -7,17 +7,19 @@ export default function ReferencePanel() {
   return (
     <>
       <button
-        className="flex items-center h-full w-2 bg-pink-950 cursor-ew-resize select-none touch-none"
+        className="bg-brand-200 flex h-full w-2 cursor-ew-resize touch-none select-none items-center justify-center"
         ref={resizerRef}
         onMouseDown={() => setIsResizing(true)}
-      />
+      >
+        <div className="bg-brand-50 h-24 w-0.5 rounded" />
+      </button>
       <div
-        className="flex justify-items-center flex-1 border-2"
+        className="flex flex-1 flex-col justify-items-center gap-4 p-4"
         id="REFERENCE-PANEL-CONTAINER"
       >
         ref panel
         <button
-          className="border bg-pink-50 h-fit p-3"
+          className="h-fit w-fit rounded p-3"
           onClick={() => setIsReferencePanelOpen(false)}
         >
           Close
