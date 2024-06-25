@@ -11,10 +11,12 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.4",
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
     "@remix-run/serve": "^2.9.2",
     "clsx": "^2.1.1",
+    "framer-motion": "^11.2.11",
     "heroicons": "^2.1.4",
     "isbot": "^4.1.0",
     "react": "^18.2.0",

@@ -8,7 +8,7 @@
     /* --font-mono: here if you got it... */
 
     /* prefixed with foreground because it should look good on the background */
-    --foreground-destructive: #ff595e;
+    --foreground-destructive: #e1594d;
 
     --background: #dddbcb;
     --foreground: #070707;

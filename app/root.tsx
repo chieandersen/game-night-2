@@ -8,7 +8,14 @@ import {
 } from '@remix-run/react';
 // import "./tailwind.css";
 import tailwindStyleSheet from '~/tailwind.css?url';
-import { ReferencePanelProvider } from './provider/ReferencePanelProvider';
+import {
+  ReferencePanelProvider,
+  useReferencePanel,
+} from './provider/ReferencePanelProvider';
+import Navigation from './component/Navigation';
+import OpenReferencePanelButton from './component/button/OpenReferencePanelButton';
+import ReferencePanel from './component/ReferencePanel';
+import clsx from 'clsx';
 
 export const links: LinksFunction = () => {
   return [
@@ -37,6 +44,7 @@ export const links: LinksFunction = () => {
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  console.log('Render Layout');
   return (
     <html lang="en">
       <head>
@@ -48,8 +56,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-brand-50 flex h-svh w-svw flex-col overflow-hidden font-josefin">
+      <body className="flex h-svh w-svw flex-row overflow-hidden bg-brand-50 font-josefin text-brand-900">
         <ReferencePanelProvider>
+          <Navigation />
           {children}
           <ScrollRestoration />
         </ReferencePanelProvider>
@@ -60,5 +69,36 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const {
+    isReferencePanelOpen,
+    mainContentWidth,
+    containerRef,
+    mainContentRef,
+  } = useReferencePanel();
+
+  return (
+    <>
+      <section className="flex h-full w-full overflow-hidden bg-neutral-600 font-josefin">
+        <div className="flex flex-1" ref={containerRef}>
+          <article
+            className={clsx(
+              'flex flex-col justify-items-center gap-4 p-4'
+            )}
+            style={{
+              width: isReferencePanelOpen ? mainContentWidth : '100%',
+            }}
+            ref={mainContentRef}
+            id="MAIN-CONTENT_CONTAINER"
+          >
+            {mainContentWidth}
+            <Outlet />
+            <OpenReferencePanelButton>
+              Open in reference panel
+            </OpenReferencePanelButton>
+          </article>
+          {isReferencePanelOpen && <ReferencePanel />}
+        </div>
+      </section>
+    </>
+  );
 }

@@ -14,7 +14,6 @@ export default function Button({
       <button className={clsx(buttonBase, buttonType[type])}>
         {children}
       </button>
-      <button className="bg-primaryForeground">{children}</button>
     </>
   );
 }
