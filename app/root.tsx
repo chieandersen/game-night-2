@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
+import { useSearchParams } from 'react-router-dom';
 import tailwindStyleSheet from '~/tailwind.css?url';
 import {
   ReferencePanelProvider,
@@ -37,20 +38,17 @@ export const links: LinksFunction = () => {
     {
       rel: 'stylesheet',
       href: tailwindStyleSheet,
+      as: 'style',
     },
   ].filter(Boolean);
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  console.log('Render Layout');
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
@@ -67,32 +65,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const {
-    isReferencePanelOpen,
-    mainContentWidth,
-    containerRef,
-    mainContentRef,
-  } = useReferencePanel();
+  const { mainContentWidth, containerRef, mainContentRef } =
+    useReferencePanel();
+  const [searchParams] = useSearchParams();
+  const isReferencePanelOpen = searchParams.get('id');
 
   return (
     <>
       <section className="flex h-full w-full overflow-hidden bg-neutral-100 font-josefin">
         <div className="flex flex-1" ref={containerRef}>
           <article
-            className={clsx(
-              'flex flex-col justify-items-center gap-4 p-4'
-            )}
+            className={clsx('flex flex-col justify-items-center gap-4 p-4')}
             style={{
               width: isReferencePanelOpen ? mainContentWidth : '100%',
             }}
             ref={mainContentRef}
             id="MAIN-CONTENT_CONTAINER"
           >
-            {/* {mainContentWidth} */}
             <Outlet />
-            {/* <OpenReferencePanelButton>
-              Open in reference panel
-            </OpenReferencePanelButton> */}
           </article>
           {isReferencePanelOpen && <ReferencePanel />}
         </div>

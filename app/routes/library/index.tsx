@@ -1,8 +1,16 @@
 import clsx from 'clsx';
 import { GAMES } from './games';
+import OpenReferencePanelButton from '~/component/button/OpenReferencePanelButton';
+import { ActionFunctionArgs } from '@remix-run/node';
 
-export default function libraryIndex() {
+export async function action({ request }: ActionFunctionArgs) {
+  const data = await request.formData();
+  return;
+}
+
+export default function LibraryIndex() {
   const games = GAMES;
+
   return (
     <div>
       <div className="w-full border-b-2 border-neutral-200">
@@ -12,9 +20,10 @@ export default function libraryIndex() {
         {games.length > 0 ? (
           games.map(({ id, title, image }) => {
             return (
-              <div
+              <OpenReferencePanelButton
                 key={id}
-                className="mr-auto flex w-fit flex-col items-center p-3"
+                buttonClass="mr-auto flex w-fit flex-col items-center p-3"
+                dataId={id}
               >
                 <div
                   className={clsx(
@@ -32,7 +41,7 @@ export default function libraryIndex() {
                   />
                 </div>
                 <h2 className="mt-2 font-semibold"> = {title} = </h2>
-              </div>
+              </OpenReferencePanelButton>
             );
           })
         ) : (
