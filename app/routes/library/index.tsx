@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { GAMES } from './games';
 import OpenReferencePanelButton from '~/component/button/OpenReferencePanelButton';
-import { ActionFunctionArgs } from '@remix-run/node';
+// import { ActionFunctionArgs } from '@remix-run/node';
 
-export async function action({ request }: ActionFunctionArgs) {
-  const data = await request.formData();
-  return;
-}
+// export async function action({ request }: ActionFunctionArgs) {
+//   const data = await request.formData();
+//   return;
+// }
 
 export default function LibraryIndex() {
   const games = GAMES;

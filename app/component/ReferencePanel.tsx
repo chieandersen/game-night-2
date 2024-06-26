@@ -1,11 +1,20 @@
 import { useReferencePanel } from '~/provider/ReferencePanelProvider';
-import GameInfo from './referencePanel/GameInfo';
+
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Link, useLocation } from '@remix-run/react';
+import { Link, redirect, useLocation } from '@remix-run/react';
+import GameInfo from './referencePanel/GameInfo';
 
 export default function ReferencePanel() {
-  const { reference, resizerRef, setIsResizing } = useReferencePanel();
+  const { reference, setReference, resizerRef, setIsResizing } =
+    useReferencePanel();
   const location = useLocation();
+
+  function handleOnClick() {
+    setReference(null);
+    location.search = ``;
+    redirect(`${location.pathname}`);
+    return;
+  }
 
   return (
     <>
@@ -20,7 +29,11 @@ export default function ReferencePanel() {
         className="flex flex-1 flex-col justify-items-center gap-4 p-4"
         id="REFERENCE-PANEL-CONTAINER"
       >
-        <Link className="h-fit w-fit rounded p-1" to={`${location.pathname}`}>
+        <Link
+          className="h-fit w-fit rounded p-1"
+          to={`${location.pathname}`}
+          onClick={handleOnClick}
+        >
           <XMarkIcon className="w-6" />
         </Link>
         {reference === 'gameInfo' && <GameInfo />}
