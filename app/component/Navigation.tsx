@@ -19,7 +19,7 @@ export default function Navigation() {
     <nav
       ref={navRef}
       className={clsx(
-        'flex flex-col border-r-4 border-brand-300 bg-brand-100',
+        'flex shrink-0 flex-col border-r-4 border-brand-300 bg-brand-100',
         isNavExpanded ? 'w-44 p-4' : 'w-14 items-center py-4'
       )}
     >

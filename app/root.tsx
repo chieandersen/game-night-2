@@ -6,14 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-// import "./tailwind.css";
 import tailwindStyleSheet from '~/tailwind.css?url';
 import {
   ReferencePanelProvider,
   useReferencePanel,
 } from './provider/ReferencePanelProvider';
 import Navigation from './component/Navigation';
-import OpenReferencePanelButton from './component/button/OpenReferencePanelButton';
 import ReferencePanel from './component/ReferencePanel';
 import clsx from 'clsx';
 
@@ -78,7 +76,7 @@ export default function App() {
 
   return (
     <>
-      <section className="flex h-full w-full overflow-hidden bg-neutral-600 font-josefin">
+      <section className="flex h-full w-full overflow-hidden bg-neutral-100 font-josefin">
         <div className="flex flex-1" ref={containerRef}>
           <article
             className={clsx(
@@ -90,11 +88,11 @@ export default function App() {
             ref={mainContentRef}
             id="MAIN-CONTENT_CONTAINER"
           >
-            {mainContentWidth}
+            {/* {mainContentWidth} */}
             <Outlet />
-            <OpenReferencePanelButton>
+            {/* <OpenReferencePanelButton>
               Open in reference panel
-            </OpenReferencePanelButton>
+            </OpenReferencePanelButton> */}
           </article>
           {isReferencePanelOpen && <ReferencePanel />}
         </div>
