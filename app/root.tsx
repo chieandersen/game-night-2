@@ -6,7 +6,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import { useSearchParams } from 'react-router-dom';
 import tailwindStyleSheet from '~/tailwind.css?url';
 import {
   ReferencePanelProvider,
@@ -65,10 +64,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const { mainContentWidth, containerRef, mainContentRef } =
+  const { showPanel, mainContentWidth, containerRef, mainContentRef } =
     useReferencePanel();
-  const [searchParams] = useSearchParams();
-  const isReferencePanelOpen = searchParams.get('id');
 
   return (
     <>
@@ -77,14 +74,14 @@ export default function App() {
           <article
             className={clsx('flex flex-col justify-items-center gap-4 p-4')}
             style={{
-              width: isReferencePanelOpen ? mainContentWidth : '100%',
+              width: showPanel ? mainContentWidth : '100%',
             }}
             ref={mainContentRef}
             id="MAIN-CONTENT_CONTAINER"
           >
             <Outlet />
           </article>
-          {isReferencePanelOpen && <ReferencePanel />}
+          {showPanel && <ReferencePanel />}
         </div>
       </section>
     </>

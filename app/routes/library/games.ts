@@ -1,3 +1,17 @@
+export type GAMESType = {
+  id: string;
+  title: string;
+  expansions: {
+    [key: string]: boolean;
+  } | null;
+  rating: number;
+  length: number;
+  image: {
+    src: string;
+    alt: string;
+  };
+};
+
 export const GAMES = [
   {
     id: '0001',

@@ -1,4 +1,3 @@
-import { Form, Link } from '@remix-run/react';
 import clsx from 'clsx';
 import { ReactNode } from 'react';
 import { useReferencePanel } from '~/provider/ReferencePanelProvider';
@@ -16,23 +15,17 @@ export default function OpenReferencePanelButton({
   buttonClass,
   dataId,
 }: OpenReferencePanelButtonType) {
-  const { setReference, setdataId } = useReferencePanel();
+  const { openReference } = useReferencePanel();
 
   function handleOnClick() {
-    setReference('gameInfo');
-    setdataId(dataId);
+    openReference(`/library?id=${dataId}`, dataId, 'game');
+    return;
   }
 
   return (
-    <Form>
-      <Link
-        className={clsx(buttonClass)}
-        onClick={handleOnClick}
-        to={`?id=${dataId}`}
-      >
-        {icon !== '' && <svg>svg</svg>}
-        {children}
-      </Link>
-    </Form>
+    <button className={clsx(buttonClass)} onClick={handleOnClick}>
+      {icon !== '' && <svg>svg</svg>}
+      {children}
+    </button>
   );
 }

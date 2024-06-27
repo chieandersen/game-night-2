@@ -36,16 +36,13 @@ export default function Navigation() {
               <button
                 className={clsx(
                   'flex items-center',
-                  isNavExpanded
-                    ? 'flex-row gap-3'
-                    : 'flex-col text-xs'
+                  isNavExpanded ? 'flex-row gap-3' : 'flex-col text-xs'
                 )}
               >
                 <Icon
                   className={clsx(
                     'size-6',
-                    currentNav === slug &&
-                      'text-accent-600 fill-current'
+                    currentNav === slug && 'text-accent-600 fill-current'
                   )}
                 />
                 <Link

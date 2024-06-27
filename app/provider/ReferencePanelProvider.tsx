@@ -11,11 +11,26 @@ import {
   useState,
 } from 'react';
 
+type ReferenceType = 'game' | 'match' | 'add-new-game' | '';
+
+type PanelStateType = {
+  referenceUrl: string;
+  referenceId: string | null;
+  referenceType: ReferenceType;
+};
+
 type ReferencePanelContextType = {
-  reference: ReferenceType;
-  setReference: Dispatch<SetStateAction<ReferenceType>>;
-  dataId: string | null;
-  setdataId: Dispatch<SetStateAction<string | null>>;
+  openReference: (
+    url: string,
+    referenceId: string,
+    referenceType: ReferenceType
+  ) => void;
+  closeReference: () => void;
+  referenceUrl: string | null;
+  referenceId: string | null;
+  referenceType?: ReferenceType;
+  showPanel: boolean;
+
   setIsResizing: Dispatch<SetStateAction<boolean>>;
   mainContentWidth: string;
   containerRef: MutableRefObject<HTMLDivElement | null>;
@@ -24,14 +39,16 @@ type ReferencePanelContextType = {
   resizerRef: MutableRefObject<HTMLButtonElement | null>;
 } | null;
 
-type ReferenceType = 'gameInfo' | null;
-
 export const ReferencePanelContext =
   createContext<ReferencePanelContextType>(null);
 
 export function ReferencePanelProvider({ children }: PropsWithChildren) {
-  const [reference, setReference] = useState<ReferenceType>('gameInfo');
-  const [dataId, setdataId] = useState<string | null>(null);
+  const [panelState, setPanelState] = useState<PanelStateType>({
+    referenceUrl: '',
+    referenceId: null,
+    referenceType: '',
+  });
+
   const [isResizing, setIsResizing] = useState(false);
   const [mainContentWidth, setMainContentWidth] = useState<string>('60%');
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -39,13 +56,29 @@ export function ReferencePanelProvider({ children }: PropsWithChildren) {
   const mainContentRef = useRef<HTMLDivElement | null>(null);
   const resizerRef = useRef<HTMLButtonElement | null>(null);
 
+  function openReference(
+    referenceUrl: string,
+    referenceId: string | null,
+    referenceType: ReferenceType
+  ) {
+    setPanelState({ referenceUrl, referenceId, referenceType });
+  }
+
+  function closeReference() {
+    setPanelState({ referenceUrl: '', referenceId: null, referenceType: '' });
+  }
+
+  const showPanel = panelState.referenceUrl === '' ? false : true;
+
   const referencePanelValue: ReferencePanelContextType = {
-    reference,
-    setReference,
-    dataId,
-    setdataId,
+    ...panelState,
+    openReference,
+    closeReference,
+    showPanel,
+
     setIsResizing,
     mainContentWidth,
+
     containerRef,
     navRef,
     mainContentRef,
